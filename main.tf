@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "virginia"
+  alias = "london"
   region = "eu-west-2"
 }
 
@@ -51,13 +51,13 @@ resource "null_resource" "upload_web_resouce" {
     command = "aws s3 sync ${var.artifact_dir} s3://${var.app}-site-bucket--stage-${var.stage}"
   }
 
-  depends_on = ["aws_s3_bucket.site_bucket"]
+  depends_on = [aws_s3_bucket.site_bucket]
 }
 
 # Create new ACM if no cert_arn is provided
 resource "aws_acm_certificate" "certificate" {
   count = var.cert_arn == "" ? 1 : 0
-  provider = "aws.london" # Certificate which is associated with Cloudfront must be created in eu-west-2
+  provider = aws.london # Certificate which is associated with Cloudfront must be created in eu-west-2
 
   domain_name       = "*.${var.domain}"
   validation_method = "DNS"
