@@ -32,7 +32,6 @@ EOF
   tags = {
     APP = var.app
     STAGE = var.stage
-    Owner = var.owner
   }
 
   versioning {
@@ -90,7 +89,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     compress               = true
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "${var.cname}"
+    target_origin_id       = var.cname
     min_ttl                = 0
     default_ttl            = 86400
     max_ttl                = 31536000
@@ -112,11 +111,11 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = "${var.cert_arn == "" ? aws_acm_certificate.certificate[0].arn : var.cert_arn }"
+    acm_certificate_arn = var.cert_arn == "" ? aws_acm_certificate.certificate[0].arn : var.cert_arn
     ssl_support_method  = "sni-only"
   }
 
-  depends_on= ["null_resource.upload_web_resouce"]
+  depends_on= [null_resource.upload_web_resouce]
 }
 
 resource "aws_route53_zone" "zone" {
