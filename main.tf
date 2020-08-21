@@ -62,7 +62,7 @@ resource "aws_acm_certificate" "certificate" {
   domain_name       = "*.${var.domain}"
   validation_method = "DNS"
 
-  subject_alternative_names = ["${var.domain}"]
+  subject_alternative_names = [var.domain]
   
   tags = { 
 		Name = var.domain
@@ -71,8 +71,8 @@ resource "aws_acm_certificate" "certificate" {
 
 resource "aws_cloudfront_distribution" "distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.site_bucket.bucket_regional_domain_name}"
-    origin_id   = "${var.cname}"
+    domain_name = aws_s3_bucket.site_bucket.bucket_regional_domain_name
+    origin_id   = var.cname
 
     custom_origin_config {
       http_port              = "80"
