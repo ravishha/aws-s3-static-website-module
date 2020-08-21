@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "${var.region}"
+  region = var.region
 }
 
 provider "aws" {
@@ -30,9 +30,9 @@ resource "aws_s3_bucket" "site_bucket"  {
 EOF
 
   tags = {
-    APP = "${var.app}"
-    STAGE = "${var.stage}"
-    Owner = "${var.owner}"
+    APP = var.app
+    STAGE = var.stage
+    Owner = var.owner
   }
 
   versioning {
@@ -40,8 +40,8 @@ EOF
   }
 
   website {
-    index_document = "${var.index_page}"
-    error_document = "${var.error_page}"
+    index_document = var.index_page
+    error_document = var.error_page
   }
 }
 
@@ -120,17 +120,17 @@ resource "aws_cloudfront_distribution" "distribution" {
 }
 
 resource "aws_route53_zone" "zone" {
-  name = "${var.domain}"
+  name = var.domain
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = "${aws_route53_zone.zone.zone_id}"
-  name    = "${var.cname}"
+  zone_id = aws_route53_zone.zone.zone_id
+  name    = var.cname
   type    = "A"
 
   alias {
-    name                   = "${aws_cloudfront_distribution.distribution.domain_name}"
-    zone_id                = "${aws_cloudfront_distribution.distribution.hosted_zone_id}"
+    name                   = aws_cloudfront_distribution.distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.distribution.hosted_zone_id
     evaluate_target_health = false
   }
 }
