@@ -8,8 +8,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "site_bucket"  {
-  bucket = "${var.app}-site-bucket--stage-${var.stage}"
-
+  bucket = "${var.app}-site-bucket-${var.stage}"
   acl    = "public-read"
 
   policy = <<EOF
