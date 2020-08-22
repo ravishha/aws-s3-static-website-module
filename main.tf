@@ -23,7 +23,7 @@ resource "aws_s3_bucket" "site_bucket"  {
         "AWS": "*"
       },
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::${var.app}-site-bucket--stage-${var.stage}/*"
+      "Resource": "arn:aws:s3:::${var.app}-site-bucket-${var.stage}/*"
     }
   ]
 }
