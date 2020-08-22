@@ -55,7 +55,7 @@ resource "null_resource" "upload_web_resouce" {
 # Create new ACM if no cert_arn is provided
 resource "aws_acm_certificate" "certificate" {
   count = var.cert_arn == "" ? 1 : 0
-  provider = aws.virginie # Certificate which is associated with Cloudfront must be created in us-east-1
+  provider = aws.virginia # Certificate which is associated with Cloudfront must be created in us-east-1
 
   domain_name       = "*.${var.domain}"
   validation_method = "DNS"
