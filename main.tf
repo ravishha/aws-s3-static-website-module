@@ -46,7 +46,7 @@ EOF
 # Sync artifact to s3 bucket
 resource "null_resource" "upload_web_resouce" {
   provisioner  "local-exec" {
-    command = "aws s3 sync ${var.artifact_dir} s3://${var.app}-site-bucket--stage-${var.stage}"
+    command = "aws s3 sync ${var.artifact_dir} s3://${var.app}-site-bucket-${var.stage}"
   }
 
   depends_on = [aws_s3_bucket.site_bucket]
