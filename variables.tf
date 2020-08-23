@@ -9,6 +9,11 @@ variable "app" {
   type        = string
 }
 
+variable "validation_method" {
+  description = "Validation method to use for approving viewer certifcate."
+  type        = string
+}
+
 variable "stage" {
   description = "Stage where app should be deployed like dev, staging or prod."
   default     = "dev"

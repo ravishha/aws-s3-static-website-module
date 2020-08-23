@@ -58,7 +58,7 @@ resource "aws_acm_certificate" "certificate" {
   provider = aws.virginia # Certificate which is associated with Cloudfront must be created in us-east-1
 
   domain_name       = "*.${var.domain}"
-  validation_method = "DNS"
+  validation_method = var.validation_method
 
   subject_alternative_names = [var.domain]
   
