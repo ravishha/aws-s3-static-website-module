@@ -1,7 +1,12 @@
 output "website_url" {
-  value = "https://${var.cname}.${var.domain}"
+  value =  aws_cloudfront_distribution.distribution.domain_name
 }
 
+output "s3_bucket_endpoint" {
+  value = aws_s3_bucket.site_bucket.website_endpoint
+}
+
+
 output "s3_bucket" {
-  value = "${var.app}-site-bucket--stage-${var.stage}"
+  value = aws_s3_bucket.site_bucket.arn
 }
